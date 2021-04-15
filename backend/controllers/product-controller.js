@@ -1,14 +1,10 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../models/product-model.js';
 
-// @description     Fetch all products
-// @route           GET /api/products
-// @access          Public
 const getProducts = asyncHandler(async (req, res) => {
 	const pageSize = 10;
 	const page = Number(req.query.pageNumber) || 1;
 
-	// get item from query string
 	const keyword = req.query.keyword
 		? {
 				name: {
@@ -30,9 +26,7 @@ const getProducts = asyncHandler(async (req, res) => {
 	});
 });
 
-// @description     Fetch single product
-// @route           GET /api/products/:id
-// @access          Public
+
 const getProductById = asyncHandler(async (req, res) => {
 	const product = await Product.findById(req.params.id);
 
@@ -44,9 +38,7 @@ const getProductById = asyncHandler(async (req, res) => {
 	}
 });
 
-// @description     Delete a product
-// @route           DELETE /api/products/:id
-// @access          Private/Admin
+
 const deleteProduct = asyncHandler(async (req, res) => {
 	const product = await Product.findById(req.params.id);
 
@@ -59,9 +51,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 	}
 });
 
-// @description     Create a product
-// @route           POST /api/products
-// @access          Private/Admin
+
 const createProduct = asyncHandler(async (req, res) => {
 	const product = new Product({
 		name: 'Sample Name',
@@ -79,9 +69,7 @@ const createProduct = asyncHandler(async (req, res) => {
 	res.status(201).json(createdProduct);
 });
 
-// @description     Update a product
-// @route           PUT /api/products/:id
-// @access          Private/Admin
+
 const updateProduct = asyncHandler(async (req, res) => {
 	const {
 		name,
@@ -112,9 +100,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 	}
 });
 
-// @description     Create new review
-// @route           POST /api/products/:id/reviews
-// @access          Private
+
 const createProductReview = asyncHandler(async (req, res) => {
 	const { rating, comment } = req.body;
 
@@ -151,9 +137,7 @@ const createProductReview = asyncHandler(async (req, res) => {
 	}
 });
 
-// @description     GET top rated products
-// @route           GET /api/products/top
-// @access          Public
+
 const getTopProducts = asyncHandler(async (req, res) => {
 	const products = await Product.find({}).sort({ rating: -1 }).limit(3);
 

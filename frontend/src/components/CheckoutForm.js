@@ -49,21 +49,18 @@ const CheckoutForm = ({ totalPrice, paymentHandler }) => {
 	}, []);
 
 	const handleChange = async (event) => {
-		// Listen for changes in the CardElement
-		// and display any errors as the customer types their card details
+	
 		setDisabled(event.empty);
 		setError(event.error ? event.error.message : '');
 	};
 
 	const handleSubmit = async (event) => {
-		// We don't want to let default form submission happen here,
-		// which would refresh the page.
+	
 		event.preventDefault();
 		setProcessing(true);
 
 		if (!stripe || !elements) {
-			// Stripe.js has not yet loaded.
-			// Make sure to disable form submission until Stripe.js has loaded.
+	
 			return;
 		}
 
@@ -89,11 +86,6 @@ const CheckoutForm = ({ totalPrice, paymentHandler }) => {
 				console.log('[PaymentIntent]', result.paymentIntent);
 				paymentHandler(result.paymentIntent);
 
-				// TODO:
-				// There's a risk of the customer closing the window before callback
-				// execution. Set up a webhook or plugin to listen for the
-				// payment_intent.succeeded event that handles any business critical
-				// post-payment actions.
 			}
 		}
 	};
