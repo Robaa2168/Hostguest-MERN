@@ -1,6 +1,7 @@
 
 
 # dependencies
+#Front and back
 node_modules
 node_modules/
 /.pnp
